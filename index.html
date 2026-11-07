@@ -1,0 +1,839 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <title>SIMTARA | Katalog Tanaman Madrasah</title>
+  <meta name="theme-color" content="#dff3ff">
+  <meta name="description" content="Katalog flora MTs Negeri 1 Probolinggo, dapat dipasang dan digunakan offline.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+  <style>
+    :root {
+      --blue: #dff3ff;
+      --blue-dark: #2279a5;
+      --green: #dff5e7;
+      --green-dark: #24865d;
+      --white: #ffffff;
+      --text: #233c50;
+      --muted: #718798;
+      --border: #e4eef3;
+      --shadow: 0 8px 28px rgba(50, 96, 125, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #f7fbfe;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(
+        125deg,
+        #dff3ff,
+        #e9f9f0,
+        #ffffff
+      );
+      padding: 30px 20px 45px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::after {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      right: -75px;
+      top: -90px;
+      pointer-events: none;
+    }
+
+    .header-content {
+      max-width: 1080px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 38px;
+    }
+
+    .brand-icon {
+      width: 49px;
+      height: 49px;
+      background: white;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      font-size: 27px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-name {
+      font-size: 23px;
+      font-weight: 800;
+      color: var(--blue-dark);
+      letter-spacing: 1px;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: #647f92;
+      margin-top: 3px;
+    }
+
+    .hero {
+      max-width: 750px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.8);
+      color: var(--green-dark);
+      border: 1px solid #c9ebd8;
+      border-radius: 50px;
+      padding: 9px 14px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.16;
+      margin: 22px 0 12px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    h1 span {
+      color: var(--blue-dark);
+    }
+
+    .hero p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #5d7788;
+      max-width: 590px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: -20px auto 0;
+      padding: 0 20px 45px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .toolbar {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 230px;
+      gap: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .field-label {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+      color: #54768a;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 17px;
+      pointer-events: none;
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid #dbe8f0;
+      background: #f9fcff;
+      padding: 0 14px;
+      font-size: 14px;
+      border-radius: 12px;
+      outline: none;
+      color: var(--text);
+      font-family: inherit;
+    }
+
+    input {
+      padding-left: 43px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #63add4;
+      box-shadow: 0 0 0 3px #e2f3fc;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 35px 0 20px;
+    }
+
+    .section-head h2 {
+      font-size: 22px;
+      margin: 0 0 6px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .counter {
+      padding: 10px 15px;
+      background: #e8f7ed;
+      color: var(--green-dark);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .plant-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      min-height: 168px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .plant-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(50, 96, 125, 0.12);
+    }
+
+    .plant-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .plant-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      background: #e9f8ee;
+      border-radius: 14px;
+      font-size: 23px;
+    }
+
+    .plant-number {
+      font-size: 11px;
+      font-weight: bold;
+      color: #98adbc;
+    }
+
+    .plant-name {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.35;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .plant-class {
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 9px;
+      background: #e7f4ff;
+      color: #2676a2;
+      overflow-wrap: anywhere;
+    }
+
+    /* Informasi dan foto tanaman */
+    .plant-card {
+      padding: 0;
+      gap: 0;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .plant-photo {
+      height: 180px;
+      background: linear-gradient(140deg, #e7f6ee, #e1f1fb);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .plant-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .foto-placeholder {
+      font-size: 47px;
+      color: #398b67;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .foto-placeholder small {
+      display: block;
+      font-size: 12px;
+      color: #668b87;
+      margin-top: 5px;
+    }
+
+    .plant-content {
+      padding: 17px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .plant-content .plant-top { gap: 10px; }
+    .plant-content .plant-name { font-size: 18px; }
+    .plant-scientific {
+      font-style: italic;
+      color: #58798b;
+      font-size: 13px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+      margin-top: -5px;
+    }
+
+    .plant-location {
+      display: flex;
+      gap: 6px;
+      font-size: 12px;
+      color: #55798a;
+      overflow-wrap: anywhere;
+    }
+
+    .plant-details {
+      border-top: 1px solid #e7eef4;
+      margin-top: 3px;
+      padding-top: 10px;
+    }
+
+    .plant-details summary {
+      list-style-position: inside;
+      cursor: pointer;
+      color: #2279a5;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 4px 0;
+    }
+
+    .plant-detail-list {
+      padding-top: 11px;
+      display: grid;
+      gap: 11px;
+    }
+
+    .plant-detail-row { min-width: 0; }
+    .plant-detail-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      color: #63879a;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .plant-detail-value {
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-line;
+      color: #27445b;
+      overflow-wrap: anywhere;
+    }
+
+    .plant-class { align-self: flex-start; }
+
+    .empty-state {
+      text-align: center;
+      background: white;
+      border: 1px dashed #d4e5ee;
+      border-radius: 20px;
+      padding: 50px 20px;
+      grid-column: 1 / -1;
+    }
+
+    .empty-icon {
+      font-size: 46px;
+      margin-bottom: 12px;
+    }
+
+    .empty-state h3 {
+      margin: 0 0 9px;
+      font-size: 18px;
+    }
+
+    .empty-state p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 480px;
+      margin: auto;
+    }
+
+    .retry {
+      background: var(--blue-dark);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 18px;
+      margin-top: 18px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .retry:hover {
+      background: #155f87;
+    }
+
+    .loading-card {
+      height: 168px;
+      border-radius: 18px;
+      background: linear-gradient(
+        100deg,
+        #edf4f8 20%,
+        #ffffff 40%,
+        #edf4f8 60%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      to {
+        background-position-x: -200%;
+      }
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      padding: 25px 15px;
+      border-top: 1px solid var(--border);
+      color: #7d94a3;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer strong {
+      color: var(--green-dark);
+    }
+
+    @media(max-width: 850px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media(max-width: 600px) {
+      .header {
+        padding: 22px 17px 40px;
+      }
+
+      .brand {
+        margin-bottom: 30px;
+      }
+
+      .brand-name {
+        font-size: 20px;
+      }
+
+      .container {
+        padding: 0 14px 30px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+        border-radius: 17px;
+        padding: 17px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+      }
+
+      .section-head h2 {
+        font-size: 19px;
+      }
+
+      .counter {
+        font-size: 11px;
+      }
+
+      .plant-card {
+        min-height: 150px;
+      }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* Penambahan khusus PWA tanpa mengubah rancangan utama SIMTARA */
+    .pwa-status { max-width:1080px; margin:16px auto 0; padding:0 20px; }
+    .pwa-status-inner { background:#fff; border:1px solid #d9eaf0; border-radius:14px; padding:11px 14px;
+      display:flex; gap:12px; align-items:center; justify-content:space-between; box-shadow:var(--shadow); }
+    .pwa-info { font-size:12px; line-height:1.6; color:#315e73; }
+    .pwa-actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:end; }
+    .pwa-actions button { border:0; border-radius:9px; background:#2279a5; color:white; font-weight:bold;
+      font-size:12px; padding:10px 12px; cursor:pointer; }
+    .pwa-actions button.secondary { color:#2279a5; background:#e5f2f9; }
+    .pwa-actions button:disabled { opacity:.55; cursor:wait; }
+    .pwa-footnote { font-size:11px; line-height:1.6; color:#728d9a; padding:8px 4px 0; }
+    @media(max-width:600px) {
+      .pwa-status {padding:0 14px;}
+      .pwa-status-inner {align-items:stretch; flex-direction:column;}
+      .pwa-actions button {flex:1;}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+
+      <div class="brand">
+        <div class="brand-icon">🌿</div>
+
+        <div>
+          <div class="brand-name">SIMTARA</div>
+          <div class="brand-sub">
+            MTs Negeri 1 Probolinggo
+          </div>
+        </div>
+      </div>
+
+      <div class="hero">
+        <div class="eyebrow">
+          🌱 Eksplorasi Flora Madrasah
+        </div>
+
+        <h1>
+          Kenali Tanaman
+          <br>
+          <span>di Sekitar Kita</span>
+        </h1>
+
+        <p>
+          Selamat datang di katalog digital tanaman
+          MTs Negeri 1 Probolinggo.
+          Jelajahi foto, nama ilmiah, ciri morfologi,
+          klasifikasi, dan lokasi tanaman madrasah
+          dalam satu katalog yang mudah diakses.
+        </p>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ISI KATALOG -->
+  <main class="container">
+
+    <!-- PENCARIAN -->
+    <section class="toolbar">
+
+      <div>
+        <label class="field-label" for="cari">
+          Cari Tanaman
+        </label>
+
+        <div class="search-wrap">
+          <span class="search-icon">🔎</span>
+
+          <input
+            type="search"
+            id="cari"
+            placeholder="Cari nama, lokasi, atau ciri tanaman..."
+            autocomplete="off"
+          >
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label" for="filterKelas">
+          Filter Kelas
+        </label>
+
+        <select id="filterKelas">
+          <option value="">
+            Semua kelas
+          </option>
+        </select>
+      </div>
+
+    </section>
+
+
+    <section class="pwa-status" aria-live="polite" style="padding:0; margin:18px 0 0">
+      <div class="pwa-status-inner">
+        <div class="pwa-info" id="statusPWA">🌱 Menyiapkan katalog SIMTARA...</div>
+        <div class="pwa-actions">
+          <button type="button" class="secondary" id="tombolPerbarui">Perbarui katalog</button>
+          <button type="button" id="tombolUnduh">Simpan untuk offline</button>
+        </div>
+      </div>
+      <p class="pwa-footnote" id="rincianOffline">Pertama kali memerlukan internet. Gunakan tombol "Simpan untuk offline" untuk menyimpan semua foto tanaman.</p>
+    </section>
+
+    <!-- INFORMASI HASIL -->
+    <section class="section-head">
+
+      <div>
+        <h2>Katalog Tanaman 🌿</h2>
+
+        <p>
+          Jelajahi koleksi flora
+          di lingkungan madrasah.
+        </p>
+      </div>
+
+      <div class="counter" id="jumlah">
+        Memuat...
+      </div>
+
+    </section>
+
+
+    <!-- DAFTAR TANAMAN -->
+    <section
+      class="grid"
+      id="daftar"
+      aria-live="polite"
+    >
+      <div class="loading-card"></div>
+      <div class="loading-card"></div>
+      <div class="loading-card"></div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <strong>SIMTARA</strong>
+    <br>
+
+    Sistem Informasi dan Inventarisasi
+    Tanaman Madrasah
+
+    <br>
+
+    MTs Negeri 1 Probolinggo
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+<!-- FORM AKSES SISWA SIMTARA -->
+
+<style>
+  body:not(.aksesDisetujui) > header,
+  body:not(.aksesDisetujui) > main,
+  body:not(.aksesDisetujui) > footer {
+    display: none !important;
+  }
+
+  #layarAksesSiswa {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(
+      135deg, #dff1ff, #e4f8ec
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .kotakAkses {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow: 0 12px 32px #326c8a20;
+    text-align: center;
+  }
+
+  .kotakAkses h2 {
+    color: #227ca9;
+    margin: 12px 0;
+  }
+
+  .kotakAkses p {
+    font-size: 14px;
+    color: #6e8898;
+    line-height: 1.6;
+  }
+
+  .kotakAkses label {
+    display: block;
+    text-align: left;
+    margin: 17px 0 7px;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .kotakAkses input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d3e5ee;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .kotakAkses button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px;
+    border: none;
+    border-radius: 11px;
+    background: #2783b1;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .kotakAkses button:disabled {
+    opacity: 0.6;
+  }
+
+  #pesanAkses {
+    color: #b53d3d;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+</style>
+
+<section id="layarAksesSiswa">
+  <div class="kotakAkses">
+
+    <div style="font-size:48px">🌿</div>
+
+    <h2>Selamat Datang di SIMTARA</h2>
+
+    <p>
+      Katalog Digital Tanaman Madrasah<br>
+      MTs Negeri 1 Probolinggo
+    </p>
+
+    <p>
+      Silakan isi identitas sebelum
+      menjelajahi katalog tanaman.
+    </p>
+
+    <form id="formAksesSiswa">
+
+      <label for="namaPengunjung">
+        Nama / Kode Siswa
+      </label>
+
+      <input
+        id="namaPengunjung"
+        type="text"
+        maxlength="80"
+        placeholder="Masukkan nama atau kode siswa"
+        required
+      >
+
+      <label for="kelasPengunjung">
+        Kelas Siswa
+      </label>
+
+      <input
+        id="kelasPengunjung"
+        type="text"
+        maxlength="40"
+        placeholder="Contoh: VII A"
+        required
+      >
+
+      <button
+        id="tombolMasukKatalog"
+        type="submit">
+        🌱 Masuk Katalog
+      </button>
+
+      <div id="pesanAkses" role="alert"></div>
+
+      <p style="font-size:11px; line-height:1.5">Identitas hanya diperlukan untuk catatan kunjungan pembelajaran. Jika offline, catatan disimpan sementara di perangkat hingga dapat disinkronkan.</p>
+    </form>
+
+  </div>
+</section>
+
+  <script src="./config.js"></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>

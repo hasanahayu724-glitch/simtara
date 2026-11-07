@@ -1,0 +1,26 @@
+{
+  "id": "./",
+  "name": "SIMTARA — Katalog Flora Madrasah",
+  "short_name": "SIMTARA",
+  "description": "Katalog tanaman MTs Negeri 1 Probolinggo yang dapat digunakan secara offline.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7fbfe",
+  "theme_color": "#dff3ff",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
