@@ -258,7 +258,7 @@ async function tampilkanFoto(item, tempat) {
     const src=await dapatFoto(item);
     if (!tempat.isConnected) return;
     if (!src) { sub.textContent = navigator.onLine ? 'Foto belum tersedia' : 'Foto belum disimpan offline'; return; }
-    const gambar=new Image(); gambar.alt='Foto tanaman '+item.nama; gambar.loading='lazy'; gambar.decoding='async';
+    const gambar=new Image(); gambar.alt='Foto tanaman '+item.nama; gambar.decoding='async';
     gambar.onload=()=>{if(tempat.isConnected) tempat.replaceChildren(gambar);};
     gambar.onerror=()=>{ sub.textContent='Gagal menampilkan foto'; };
     gambar.src=src;
