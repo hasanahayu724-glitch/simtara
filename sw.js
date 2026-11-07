@@ -1,5 +1,5 @@
 'use strict';
-const CACHE = 'simtara-shell-v1';
+const CACHE = 'simtara-shell-v2';
 const BERKAS = [
   './', './index.html', './app.js', './config.js', './manifest.webmanifest',
   './icon-192.png', './icon-512.png'
