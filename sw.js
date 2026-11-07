@@ -2,7 +2,7 @@
 const CACHE = 'simtara-shell-v1';
 const BERKAS = [
   './', './index.html', './app.js', './config.js', './manifest.webmanifest',
-  './icons/icon-192.png', './icons/icon-512.png'
+  './icon-192.png', './icon-512.png'
 ];
 self.addEventListener('install', evt => {
   evt.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(BERKAS)).then(()=>self.skipWaiting()));
